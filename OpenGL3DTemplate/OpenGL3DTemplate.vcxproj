@@ -82,7 +82,12 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="level1.cpp" />
+    <ClCompile Include="level2.cpp" />
     <ClCompile Include="OpenGL3DTemplate.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="teamHeader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

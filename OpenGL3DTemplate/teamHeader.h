@@ -1,7 +1,7 @@
 #ifndef TEAM_HEADER_H
 #define TEAM_HEADER_H
 
-#include <GL/glut.h>
+#include <glut.h>
 #include <string>
 
 // === ENUM FOR GAME LEVEL ===
