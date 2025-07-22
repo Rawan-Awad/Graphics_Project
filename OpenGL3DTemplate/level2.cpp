@@ -1,7 +1,16 @@
 #include <glut.h>
 #include "teamHeader.h"
-//#include <cstdlib>
+#include "TextureBuilder.h"
+#include "Model_3DS.h"
+#include "GLTexture.h"
 
+//#include <cstdlib>
+Model_3DS model_car;
+Model_3DS model_sign;
+Model_3DS model_rock;
+Model_3DS model_desert;
+Model_3DS model_flag;
+Model_3DS model_coin;
 void initLevel2() {
     // Load desert scene, finish line, obstacles
     model_car.Load("models/car/_Subaru-Loyale.3ds");         // Car model (if different from Level 1)
