@@ -1,19 +1,6 @@
 #include <glut.h>
 #include "teamHeader.h"
-#include "Model_3DS.h"
-#include "GLTexture.h"
-
-#include "TextureBuilder.h"
-
-Model_3DS model_car;
-Model_3DS model_sign;
-Model_3DS model_rock;
-Model_3DS model_desert;
-Model_3DS model_flag;
-Model_3DS model_coin;
-
-
-
+//#include <cstdlib>
 
 void initLevel2() {
     // Load desert scene, finish line, obstacles

@@ -18,30 +18,15 @@
     <ClCompile Include="OpenGL3DTemplate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="level2.cpp">
+    <ClCompile Include="level1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="level1.cpp">
+    <ClCompile Include="level2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TextureBuilder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="teamHeader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GLTexture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Model_3DS.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="glaux.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="glew.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
