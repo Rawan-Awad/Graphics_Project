@@ -1,8 +1,9 @@
 #ifndef TEAM_HEADER_H
 #define TEAM_HEADER_H
-
+#include <cstdlib>
 #include <glut.h>
 #include <string>
+
 
 // === ENUM FOR GAME LEVEL ===
 enum GameLevel { LEVEL1, LEVEL2 };

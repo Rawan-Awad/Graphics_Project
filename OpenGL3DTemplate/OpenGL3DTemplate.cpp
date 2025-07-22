@@ -1,13 +1,22 @@
 #include "teamHeader.h"
-#include <string>
-#include <glut.h>
+
+#include <glut.h> 
+#include <string> 
+#include <cmath>       
+#include <algorithm>    
 using namespace std;
 
 // === GLOBAL DEFINITIONS ===
-Player player = { 0.0f, 0.0f, 0.0f, 100.0f, 0, false };
+Player player = { 0.0f, 0.0f, 0.0f, 0.0f, 0, false };
 float moveSpeed = 0.5f;
 bool isFirstPerson = false;
 GameLevel currentLevel = LEVEL1;
+  //fake collectibles
+float collectibleX = 10.0f;
+float collectibleZ = -5.0f;
+bool collected = false;
+float obstacleX = 15.0f;
+float obstacleZ = -10.0f;
 
 // === INIT ===
 void initGame() {
@@ -25,7 +34,7 @@ void handleKeyboard(unsigned char key, int x, int y) {
     case 's': case 'S': player.z += moveSpeed; break;
     case 'a': case 'A': player.x -= moveSpeed; break;
     case 'd': case 'D': player.x += moveSpeed; break;
-    case 27: exit(0); break; // ESC
+    case 27:  ::exit(EXIT_SUCCESS); break; // ESC
     }
 }
 
@@ -55,16 +64,70 @@ void updateCamera() {
 
 // === HUD ===
 void drawHUD() {
-    glColor3f(1, 1, 1);
-    glRasterPos2f(-0.95f, 0.9f);
-    string hud = "Score: " + to_string(player.score) + " | Stamina: " + to_string((int)player.stamina);
-    for (char c : hud) glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    glLoadIdentity();
+    gluOrtho2D(0, 800, 0, 600);
+
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    glLoadIdentity();
+
+    glDisable(GL_DEPTH_TEST);
+    glRasterPos2i(10, 580);
+    std::string hud = "Score: " + std::to_string(player.score) + " | Stamina: " + std::to_string((int)player.stamina);
+    for (char c : hud) {
+        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+    }
+    glEnable(GL_DEPTH_TEST);
+
+    glPopMatrix();
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    glMatrixMode(GL_MODELVIEW);
+}
+void reshape(int w, int h) {
+    glViewport(0, 0, w, h);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(60.0, (float)w / (float)h, 1.0, 1000.0);
+    glMatrixMode(GL_MODELVIEW);
 }
 
 // === LOGIC ===
 void updateLevel1Logic() {
     // collision, pickups, stamina, level switch
-}
+    //using fake collectibles
+    if (!collected) {
+        float dx1 = player.x - collectibleX;
+        float dz1 = player.z - collectibleZ;
+        float dist1 = sqrt(dx1 * dx1 + dz1 * dz1);
+        if (dist1 < 2.0f) {
+            player.stamina = min(player.stamina + 10, 100.0f);
+            player.score += 5;
+            collected = true;
+        }
+    }
+        //obstacle logic
+        float dx2 = player.x - obstacleX;
+        float dz2 = player.z - obstacleZ;
+        float dist2 = sqrt(dx2 * dx2 + dz2 * dz2);
+        if (dist2 < 2.0f) {
+            player.stamina -= 1.0f;
+            if (player.stamina <= 0) {
+                player.x = 0;
+                player.z = 0;
+                player.stamina = 100;
+            }
+        }
+        //switching level
+        if (player.x > 30.0f) {
+            currentLevel = LEVEL2;
+            player.x = 0;
+            player.z = 0;
+        }
+    }
+
 
 void updateLevel2Logic() {
     // coin pickup, stamina loss, win check
@@ -82,6 +145,7 @@ void playSound(const std::string& type) {
 
 // === DISPLAY ===
 void display() {
+    glClearColor(0.1f, 0.1f, 0.2f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
 
@@ -95,16 +159,20 @@ void display() {
 
 // === TIMER ===
 void timer(int value) {
-    if (currentLevel == LEVEL1) updateLevel1Logic();
-    else updateLevel2Logic();
+    if (currentLevel == LEVEL1) {
+        updateLevel1Logic();     // T1 - logic
+        animateLevel1Objects();  // T2 - animation
+    }
+    else {
+        updateLevel2Logic();     // T1 - logic
+        animateLevel2Objects();  // T3 - animation
+    }
 
-    animateLevel1Objects();
-    animateLevel2Objects();
-    updateLighting();
-
+    updateLighting(); // T3 - lighting
     glutPostRedisplay();
-    glutTimerFunc(16, timer, 0);
+    glutTimerFunc(16, timer, 0); // ~60 FPS
 }
+
 
 // === MAIN ===
 int main(int argc, char** argv) {
@@ -118,6 +186,7 @@ int main(int argc, char** argv) {
     glutTimerFunc(0, timer, 0);
     glutKeyboardFunc(handleKeyboard);
     glutMouseFunc(handleMouse);
+    glutReshapeFunc(reshape);
 
     glutMainLoop();
     return 0;
