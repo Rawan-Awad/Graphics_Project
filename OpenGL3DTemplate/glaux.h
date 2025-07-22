@@ -54,6 +54,7 @@ Abstract:
  */
 
 #include <windows.h>
+#include <glew.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 

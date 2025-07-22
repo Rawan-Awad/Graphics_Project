@@ -87,6 +87,7 @@
     <ClCompile Include="OpenGL3DTemplate.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="glaux.h" />
     <ClInclude Include="glew.h" />
     <ClInclude Include="GLTexture.h" />
     <ClInclude Include="Model_3DS.h" />
