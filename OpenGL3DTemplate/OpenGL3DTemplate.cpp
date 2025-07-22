@@ -1,9 +1,11 @@
+#define GLUT_DISABLE_ATEXIT_HACK // Disable glut's atexit registration
+#include <Windows.h>
 #include "teamHeader.h"
-
 #include <glut.h> 
 #include <string> 
 #include <cmath>       
-#include <algorithm>    
+#include <algorithm> 
+#undef exit
 using namespace std;
 
 // === GLOBAL DEFINITIONS ===

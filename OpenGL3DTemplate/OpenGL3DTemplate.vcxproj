@@ -93,7 +93,6 @@
     <ClInclude Include="Model_3DS.h" />
     <ClInclude Include="teamHeader.h" />
     <ClInclude Include="TextureBuilder.h" />
-    <ClInclude Include="teamHeader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

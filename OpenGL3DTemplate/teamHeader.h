@@ -1,3 +1,4 @@
+
 #ifndef TEAM_HEADER_H
 #define TEAM_HEADER_H
 #include <cstdlib>
@@ -5,9 +6,14 @@
 #include <string>
 
 
+
 // === ENUM FOR GAME LEVEL ===
 enum GameLevel { LEVEL1, LEVEL2 };
 extern GameLevel currentLevel;
+// === Shared Level 2 Globals ===
+extern float collectibleX, collectibleZ;
+extern bool collected;
+extern float obstacleX, obstacleZ;
 
 // === PLAYER STRUCT ===
 struct Player {
@@ -45,5 +51,6 @@ void initLevel2();
 void drawLevel2();
 void animateLevel2Objects();
 void initLighting(); // shared from team 3
+
 
 #endif

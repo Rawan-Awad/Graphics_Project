@@ -1,4 +1,5 @@
 #include "teamHeader.h"
+#undef exit
 
 void initLevel1() {
     // Load city models, collectibles, layout

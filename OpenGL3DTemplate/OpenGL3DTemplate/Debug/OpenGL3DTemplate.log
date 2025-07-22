@@ -1,23 +1,8 @@
-﻿  level1.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\ucrt\stdlib.h(56,48): error C2381: 'exit': redefinition; 'noreturn' differs
-  (compiling source file 'level1.cpp')
-      Z:\summer\graphics\project\OpenGL3DTemplate\glut.h(146,29):
-      see declaration of 'exit'
-  
-  level2.cpp
+﻿  level2.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\ucrt\stdlib.h(56,48): error C2381: 'exit': redefinition; 'noreturn' differs
   (compiling source file 'level2.cpp')
       Z:\summer\graphics\project\OpenGL3DTemplate\glut.h(146,29):
       see declaration of 'exit'
-  
-Z:\summer\graphics\project\OpenGL3DTemplate\glew.h(84,1): error C1189: #error:  gl.h included before glew.h
-  (compiling source file 'level2.cpp')
   
   OpenGL3DTemplate.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\ucrt\stdlib.h(56,48): error C2381: 'exit': redefinition; 'noreturn' differs
-  (compiling source file 'OpenGL3DTemplate.cpp')
-      Z:\summer\graphics\project\OpenGL3DTemplate\glut.h(146,29):
-      see declaration of 'exit'
-  
-Z:\summer\graphics\project\OpenGL3DTemplate\OpenGL3DTemplate.cpp(28,14): error C2264: 'exit': error in function definition or declaration; function not called
   Generating Code...
