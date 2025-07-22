@@ -11,12 +11,16 @@ Player player = { 0.0f, 0.0f, 0.0f, 0.0f, 0, false };
 float moveSpeed = 0.5f;
 bool isFirstPerson = false;
 GameLevel currentLevel = LEVEL1;
+GameState gameState = PLAYING;
   //fake collectibles
 float collectibleX = 10.0f;
 float collectibleZ = -5.0f;
 bool collected = false;
 float obstacleX = 15.0f;
 float obstacleZ = -10.0f;
+float coinX = 20.0f;
+float coinZ = -10.0f;
+bool coinCollected = false;
 
 // === INIT ===
 void initGame() {
@@ -130,7 +134,25 @@ void updateLevel1Logic() {
 
 
 void updateLevel2Logic() {
-    // coin pickup, stamina loss, win check
+    if (gameState != PLAYING) return;
+
+    player.stamina -= 0.1f;
+    if (player.stamina <= 0) {
+        gameState = LOST;
+        return;
+    }
+    float dx = player.x - coinX;
+    float dz = player.z - coinZ;
+    float dist = sqrt(dx * dx + dz * dz);
+    if (dist < 2.0f && !coinCollected) {
+        player.score += 10;
+        player.stamina = min(player.stamina + 5.0f, 100.f);
+        coinCollected = true;
+    }
+    if (player.x > 50.0f && player.z > 50.0f) {
+        gameState = WON;
+    }
+
 }
 
 // === LIGHTING ===
@@ -154,23 +176,36 @@ void display() {
     else drawLevel2();
 
     drawHUD();
+    if (gameState == WON || gameState == LOST) {
+        glColor3f(1, 1, 1);
+        glRasterPos2i(300, 300);
+        string endText = (gameState == WON) ? " Congrats! You Won!" : " Hard Luck! You Lost!";
+        for (char c : endText) glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+
+        glRasterPos2i(300, 270);
+        string scoreText = "Final Score: " + to_string(player.score);
+        for (char c : scoreText) glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, c);
+    }
     glutSwapBuffers();
 }
 
 // === TIMER ===
 void timer(int value) {
-    if (currentLevel == LEVEL1) {
-        updateLevel1Logic();     // T1 - logic
-        animateLevel1Objects();  // T2 - animation
-    }
-    else {
-        updateLevel2Logic();     // T1 - logic
-        animateLevel2Objects();  // T3 - animation
+    if (gameState == PLAYING) {
+        if (currentLevel == LEVEL1) {
+            updateLevel1Logic();
+            animateLevel1Objects();
+        }
+        else {
+            updateLevel2Logic();
+            animateLevel2Objects();
+        }
+
+        updateLighting();
     }
 
-    updateLighting(); // T3 - lighting
     glutPostRedisplay();
-    glutTimerFunc(16, timer, 0); // ~60 FPS
+    glutTimerFunc(16, timer, 0);
 }
 
 

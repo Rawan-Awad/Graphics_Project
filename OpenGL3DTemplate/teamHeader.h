@@ -9,6 +9,9 @@
 enum GameLevel { LEVEL1, LEVEL2 };
 extern GameLevel currentLevel;
 
+enum GameState { PLAYING, WON, LOST};
+extern GameState gameState;
+
 // === PLAYER STRUCT ===
 struct Player {
     float x, y, z;
