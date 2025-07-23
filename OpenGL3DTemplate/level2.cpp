@@ -1,11 +1,11 @@
 
 #include <glew.h>
-#include <glut.h>
+
 #include "teamHeader.h"
 #include "TextureBuilder.h"
 #include "Model_3DS.h"
 #include "GLTexture.h"
-#undef exit
+#include <glut.h>
 
 //#include <cstdlib>
 Model_3DS model_car;

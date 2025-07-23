@@ -1,8 +1,4 @@
 ﻿  level2.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.26100.0\ucrt\stdlib.h(56,48): error C2381: 'exit': redefinition; 'noreturn' differs
-  (compiling source file 'level2.cpp')
-      Z:\summer\graphics\project\OpenGL3DTemplate\glut.h(146,29):
-      see declaration of 'exit'
-  
-  OpenGL3DTemplate.cpp
-  Generating Code...
+level1.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/INCREMENTAL:NO' specification
+OpenGL3DTemplate.obj : error LNK2005: "void __cdecl updateLighting(void)" (?updateLighting@@YAXXZ) already defined in level2.obj
+LINK : fatal error LNK1104: cannot open file 'glew32.lib'
